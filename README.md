@@ -1,3 +1,2 @@
 # EngSoftware_BCC
 Teste
-anellykovalski/EngSoftware_BCCanellykovalski/EngSoftware_BCCanellykovalski/EngSoftware_BCCanellykovalski/EngSoftware_BCC
