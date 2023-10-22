@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS `engsoftware`.`Usuario` (
   `email` VARCHAR(150) NOT NULL,
   `nomeUsuario` VARCHAR(150) NOT NULL,
   `senha` CHAR(88) NOT NULL,
+  `tipoUsuario` ENUM('normal', 'especialista', 'admin') DEFAULT 'normal',
   PRIMARY KEY (`email`))
 ENGINE = InnoDB;
 
@@ -91,36 +92,6 @@ CREATE TABLE IF NOT EXISTS `engsoftware`.`Silo` (
   CONSTRAINT `fk_Silo_Filial1`
     FOREIGN KEY (`Filial_idFilial` , `Filial_Cidade_idcidade`)
     REFERENCES `engsoftware`.`Filial` (`idFilial` , `Cidade_idcidade`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `engsoftware`.`Admin`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `engsoftware`.`Admin` (
-  `Usuario_email` VARCHAR(150) NOT NULL,
-  PRIMARY KEY (`Usuario_email`),
-  CONSTRAINT `fk_Admin_Usuario1`
-    FOREIGN KEY (`Usuario_email`)
-    REFERENCES `engsoftware`.`Usuario` (`email`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `engsoftware`.`Especialista`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `engsoftware`.`Especialista` (
-  `Usuario_email` VARCHAR(150) NOT NULL,
-  `especialidade` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`Usuario_email`),
-  INDEX `fk_Especialista_Usuario1_idx` (`Usuario_email` ASC) VISIBLE,
-  CONSTRAINT `fk_Especialista_Usuario1`
-    FOREIGN KEY (`Usuario_email`)
-    REFERENCES `engsoftware`.`Usuario` (`email`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
