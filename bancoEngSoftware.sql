@@ -23,7 +23,7 @@ USE `engsoftware` ;
 CREATE TABLE IF NOT EXISTS `engsoftware`.`Usuario` (
   `email` VARCHAR(150) NOT NULL,
   `nomeUsuario` VARCHAR(150) NOT NULL,
-  `senha` CHAR(32) NOT NULL,
+  `senha` CHAR(88) NOT NULL,
   PRIMARY KEY (`email`))
 ENGINE = InnoDB;
 
