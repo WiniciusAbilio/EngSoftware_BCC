@@ -9,7 +9,7 @@ function Login() {
     <div className="container">
       <div className="container-login">
         <div className="wrap-login">
-          <form className="login-form" action="/processarLogin" method="post">
+          <form className="login-form" action="http://127.0.0.1:8000/processarLogin/" method="post">
             <span className="login-form-title">Bem Vindo!</span>
             <span className="login-form-title">
               {/* Coloque aqui a imagem do seu logotipo */}
@@ -17,11 +17,11 @@ function Login() {
             </span>
 
             <div className='wrap-input'>
-              <input className='input' type='email' placeholder='Email' />
+              <input className='input' name='email' type='email' placeholder='Email' />
             </div>
 
             <div className='wrap-input'>
-              <input className='input' type='password' placeholder='Password' />
+              <input className='input' name='password' type='password' placeholder='Password' />
             </div>
 
             <div className='container-login-form-btn'>

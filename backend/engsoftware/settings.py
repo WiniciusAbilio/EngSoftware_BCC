@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'usuarios',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,11 +40,34 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+# settings.py
+
+# Configurações de sessão
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Armazenamento em banco de dados (padrão)
+SESSION_CACHE_ALIAS = 'default'  # Cache padrão
+
+SESSION_COOKIE_NAME = 'sessionid'  # Nome do cookie de sessão
+SESSION_COOKIE_AGE = 1209600  # Tempo de expiração do cookie em segundos (2 semanas)
+SESSION_COOKIE_SECURE = False  # Defina como True se estiver usando HTTPS
+SESSION_COOKIE_HTTPONLY = True  # Cookies acessíveis apenas por HTTP
+SESSION_COOKIE_SAMESITE = 'Lax'  # Configuração SameSite do cookie (pode ser 'Lax', 'Strict' ou None)
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+SESSION_CACHE_ALIAS = 'default'  # Cache local padrão
+
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+    }
+}
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
