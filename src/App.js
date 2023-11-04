@@ -1,39 +1,52 @@
-import aaIMG from './assets/aa.png'
+import React from 'react';
+import { Route, Routes, Navigate } from 'react-router-dom';
+import Login from './components/login';
+import CadastroUsuario from './components/cadastroUsuario';
+import CadastroCidade from './components/cadastroCidade';
+import CadastroFilial from './components/cadastroFilial';
+import CadastroSilo from './components/cadastroSilo';
 
-import './styles.css'
+function checkUserRole() {
+  const token = localStorage.getItem('token');
+  if (token) {
+    const payloadBase64 = token.split('.')[1];
+    const decodedPayload = atob(payloadBase64);
+    const payload = JSON.parse(decodedPayload);
+    return payload.usuario_tipo;
+  }
+  return null;
+}
+
+function RedirecionamentoPadrao() {
+
+  const userRole = checkUserRole();
+
+  if (userRole === 'admin') {
+    window.location.pathname = '/cadastroUsuario'
+  } else if (userRole === 'especialista') {
+    window.location.pathname = '/outraRota'
+  }
+  return null;
+}
 
 function App() {
+  const userRole = checkUserRole();
+
   return (
-    <div className="container">
-      <div className="container-login">
-        <div className="wrap-login">
-          <form className="login-form">
-            <span className="login-form-title">Bem Vindo!</span>
-            <span className="login-form-title">
-              <img src={aaIMG} alt="hihi"/>
-            </span>
-
-            <div className='wrap-input'>
-              <input className='input' type='email'/>
-              <span className='focus-input' data-placeholder='Email'></span>
-            </div>
-
-            <div className='wrap-input'>
-              <input className='input' type='password'/>
-              <span className='focus-input' data-placeholder='Password'></span>
-            </div>
-
-            <div className='container-login-form-btn'>
-              <button className='logon-forn-btn'>
-                LOGIN
-              </button>
-
-            </div>
-           
-          </form>
-        </div>
-      </div>
-    </div>
+    <Routes>
+      <Route path="/redirecionamentoPadrao" element={<RedirecionamentoPadrao />} />
+      <Route path="/" element={userRole ? <Navigate to="/redirecionamentoPadrao" replace={true} /> : <Login />} />
+      {userRole === 'admin' && (
+        <>
+          <Route path="/cadastroUsuario" element={<CadastroUsuario />} />
+          <Route path="/cadastroCidade" element={<CadastroCidade />} />
+          <Route path="/cadastroFilial" element={<CadastroFilial />} />
+          <Route path="/cadastroSilo" element={<CadastroSilo />} />
+        </>
+      )}
+      {userRole === 'especialista' && (<></>)}
+      {userRole === 'normal' && (<></>)}
+    </Routes>
   );
 }
 
