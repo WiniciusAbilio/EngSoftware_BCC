@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+from datetime import timedelta
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -32,6 +34,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'usuarios',
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,28 +46,28 @@ INSTALLED_APPS = [
 # settings.py
 
 # Configurações de sessão
-SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Armazenamento em banco de dados (padrão)
-SESSION_CACHE_ALIAS = 'default'  # Cache padrão
-
 SESSION_COOKIE_NAME = 'sessionid'  # Nome do cookie de sessão
 SESSION_COOKIE_AGE = 1209600  # Tempo de expiração do cookie em segundos (2 semanas)
 SESSION_COOKIE_SECURE = False  # Defina como True se estiver usando HTTPS
-SESSION_COOKIE_HTTPONLY = True  # Cookies acessíveis apenas por HTTP
+SESSION_COOKIE_HTTPONLY = False  # Cookies acessíveis apenas por HTTP
 SESSION_COOKIE_SAMESITE = 'Lax'  # Configuração SameSite do cookie (pode ser 'Lax', 'Strict' ou None)
 
-SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
-SESSION_CACHE_ALIAS = 'default'  # Cache local padrão
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
 
-
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'unique-snowflake',
-    }
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+    'SLIDING_TOKEN_LIFETIME': timedelta(days=14),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=14),
 }
 
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -72,6 +75,13 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
+
 
 ROOT_URLCONF = 'engsoftware.urls'
 
