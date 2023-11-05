@@ -5,6 +5,7 @@ import CadastroUsuario from './components/cadastroUsuario';
 import CadastroCidade from './components/cadastroCidade';
 import CadastroFilial from './components/cadastroFilial';
 import CadastroSilo from './components/cadastroSilo';
+import TelaAdm from './components/telaAdm';
 
 function checkUserRole() {
   const token = localStorage.getItem('token');
@@ -22,7 +23,7 @@ function RedirecionamentoPadrao() {
   const userRole = checkUserRole();
 
   if (userRole === 'admin') {
-    window.location.pathname = '/cadastroUsuario'
+    window.location.pathname = '/telaAdm'
   } else if (userRole === 'especialista') {
     window.location.pathname = '/outraRota'
   }
@@ -38,6 +39,7 @@ function App() {
       <Route path="/" element={userRole ? <Navigate to="/redirecionamentoPadrao" replace={true} /> : <Login />} />
       {userRole === 'admin' && (
         <>
+          <Route path="/telaAdm" element={<TelaAdm />} />
           <Route path="/cadastroUsuario" element={<CadastroUsuario />} />
           <Route path="/cadastroCidade" element={<CadastroCidade />} />
           <Route path="/cadastroFilial" element={<CadastroFilial />} />
