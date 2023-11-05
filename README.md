@@ -6,6 +6,8 @@
 
 
 Executar o backend: python manage.py runserver
+
+
 Alterar senha padrao do mysql: ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
 python manage.py runserver
 
