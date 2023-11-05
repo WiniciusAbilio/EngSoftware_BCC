@@ -1,51 +1,71 @@
-# 🌟 EngSoftware_BCC
+# EngSoftware_BCC
+Este repositório pertence ao projeto da disciplina de Engenharia de Software da UTFPR-CM.
 
-Bem-vindo ao repositório do projeto da disciplina de Engenharia de Software da UTFPR-CM.
+O projeto é um site que permite que empresas no ramo alimentício identifiquem quais são as espécies de pragas encontradas nos silos junto com os grãos. O site utiliza uma inteligência artificial para identificar as espécies de pragas.
 
-## 🚀 Descrição do Projeto
+## Comandos Frontend
+Os comandos a seguir precisam ser executados dentro da pasta raiz no terminal:
 
-O nosso projeto consiste em um site que oferece suporte às empresas do setor alimentício na identificação das espécies de pragas 🐜 que podem ser encontradas nos silos junto com os grãos 🌾. Utilizamos inteligência artificial 🤖 para tornar esse processo mais eficiente e preciso.
+**Instalar requerimentos frontend:**
+```bash
+npm install
+```
 
-## 🛠️ Como Começar
+**Executar o frontend:**
+```bash
+npm start
+```
 
-Para começar a usar o projeto, siga as instruções abaixo:
+## Comandos Backend # EngSoftware_BCC 🎓
+Este repositório pertence ao projeto da disciplina de Engenharia de Software da UTFPR-CM. 🏫
 
-### Frontend
+O projeto é um site que permite que empresas no ramo alimentício identifiquem quais são as espécies de pragas encontradas nos silos junto com os grãos. 🌽🐜 O site utiliza uma inteligência artificial para identificar as espécies de pragas. 🧠💻
 
-Certifique-se de estar na pasta raiz do projeto no terminal antes de executar os comandos.
+## Comandos Frontend 💻
+Os comandos a seguir precisam ser executados dentro da pasta raiz no terminal:
 
-1. Instale as dependências do frontend executando o seguinte comando:
+**Instalar requerimentos frontend:**
+```bash
+npm install
+```
 
-   ```bash
-   npm install
-Inicie o frontend com o seguinte comando:
+**Executar o frontend:**
+```bash
+npm start
+```
 
-   ```bash
-   npm start
+## Comandos Backend 🖥️
+Os comandos a seguir precisam ser executados dentro da pasta backend pelo terminal:
 
-Backend
-Certifique-se de estar na pasta "backend" do projeto no terminal antes de executar os comandos.
+**Instalar requerimentos backend:**
+```bash
+pip install -r requirements.txt 
+```
 
-Instale as dependências do backend com o seguinte comando:
+**Executar o backend:**
+```bash
+python manage.py runserver
+```
 
-   ```bash
-   pip install -r requirements.txt
-Inicie o servidor backend com o seguinte comando:
+## Alterar senha padrão do MySQL 🔑
+```bash
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+python manage.py runserver
+```
+Os comandos a seguir precisam ser executados dentro da pasta backend pelo terminal:
 
-      ```bash
-   python manage.py runserver
-🛡️ Alterando a Senha do MySQL
-Se você precisar alterar a senha padrão do MySQL, utilize o seguinte comando SQL no MySQL:
+**Instalar requerimentos backend:**
+```bash
+pip install -r requirements.txt 
+```
 
-   sql
-      ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'nova_senha';
-Substitua 'nova_senha' pela nova senha desejada.
+**Executar o backend:**
+```bash
+python manage.py runserver
+```
 
-🔥 Executando o Servidor
-Para iniciar o servidor do projeto, utilize o seguinte comando:
-
-      ```bash
-   python manage.py runserver
-Isso fará com que o servidor backend seja executado.
-
-Agora você está pronto para começar a usar o projeto e explorar todas as suas funcionalidades. Se tiver alguma dúvida ou encontrar algum problema, não hesite em entrar em contato conosco. ✨
+## Alterar senha padrão do MySQL
+```bash
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+python manage.py runserver
+```
