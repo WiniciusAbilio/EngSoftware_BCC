@@ -17,7 +17,7 @@
     text-align: center;
   }
   
-  .container-login-form-btn {
+  .container-logon-form-btn {
     margin-top: 20px;
   }
   
@@ -44,7 +44,7 @@
     color: #ffffff;
   }
   
-  .container-login-form-btn a:hover {
+  .container-logon-form-btn a:hover {
     text-decoration: none;
     color: #ffffff;
   }
