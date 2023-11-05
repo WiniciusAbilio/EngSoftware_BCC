@@ -18,14 +18,6 @@ function TelaAdm() {
           </div>
 
           <div className='container-login-form-btn'>
-            <Link to='/cadastroCidade'>
-              <button className='logon-form-btn'>
-                CADASTRAR CIDADE
-              </button>
-            </Link>
-          </div>
-
-          <div className='container-login-form-btn'>
             <Link to='/cadastroSilo'>
               <button className='logon-form-btn'>
                 CADASTRAR SILO

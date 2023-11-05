@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import Login from './components/login';
 import CadastroUsuario from './components/cadastroUsuario';
-import CadastroCidade from './components/cadastroCidade';
 import CadastroFilial from './components/cadastroFilial';
 import CadastroSilo from './components/cadastroSilo';
 import TelaAdm from './components/telaAdm';
@@ -41,7 +40,6 @@ function App() {
         <>
           <Route path="/telaAdm" element={<TelaAdm />} />
           <Route path="/cadastroUsuario" element={<CadastroUsuario />} />
-          <Route path="/cadastroCidade" element={<CadastroCidade />} />
           <Route path="/cadastroFilial" element={<CadastroFilial />} />
           <Route path="/cadastroSilo" element={<CadastroSilo />} />
         </>
