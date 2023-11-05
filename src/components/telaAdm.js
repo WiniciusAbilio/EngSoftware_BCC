@@ -8,7 +8,7 @@ function TelaAdm() {
     <div className="container">
       <div className="container-adm">
         <div className="wrap-adm">
-          Bem Vindo!
+          <h1>Bem Vindo!</h1> 
           <div className='container-login-form-btn'>
             <Link to='/cadastroUsuario'> {/* Use o componente Link para navegação */}
               <button className='logon-form-btn'>
