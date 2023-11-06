@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
-import Login from './components/login';
-import CadastroUsuario from './components/cadastroUsuario';
-import CadastroFilial from './components/cadastroFilial';
-import CadastroSilo from './components/cadastroSilo';
-import TelaAdm from './components/telaAdm';
+import Login from './pages/login';
+import CadastroUsuario from './pages/cadastroUsuario';
+import CadastroFilial from './pages/cadastroFilial';
+import CadastroSilo from './pages/cadastroSilo';
+import TelaAdm from './pages/telaAdm';
 
 function checkUserRole() {
   const token = localStorage.getItem('token');
