@@ -32,9 +32,19 @@ function SelectFiliais() {
   }, [selectedValue]);
 
   return (
-    <div>
-      <select id="selectData" name= "idFilial" value={selectedValue} onChange={(e) => setSelectedValue(e.target.value)}>
-        {data.map(item => (
+<div className="select-container" style={{ marginBottom: '1rem' }}>
+      <select
+        id="selectData"
+        name="idFilial"
+        value={selectedValue}
+        onChange={(e) => setSelectedValue(e.target.value)}
+        className="custom-select"
+        required
+      >
+        <option value="" disabled>
+          Selecione a Filial
+        </option>
+        {data.map((item) => (
           <option key={item.idFilial} value={item.idFilial}>
             {item.nomeFilial}
           </option>

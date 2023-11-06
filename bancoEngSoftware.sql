@@ -74,9 +74,8 @@ CREATE TABLE IF NOT EXISTS `engsoftware`.`Silo` (
   `idSilo` INT NOT NULL AUTO_INCREMENT,
   `nomeSilo` VARCHAR(45) CHARACTER SET 'armscii8' NOT NULL,
   `Filial_idFilial` INT NOT NULL,
-  `Filial_Cidade_idcidade` INT NOT NULL,
-  PRIMARY KEY (`idSilo`, `Filial_idFilial`, `Filial_Cidade_idcidade`),
-  INDEX `fk_Silo_Filial1_idx` (`Filial_idFilial` ASC, `Filial_Cidade_idcidade` ASC) VISIBLE,
+  PRIMARY KEY (`idSilo`, `Filial_idFilial`),
+  INDEX `fk_Silo_Filial1_idx` (`Filial_idFilial` ASC) VISIBLE,
   CONSTRAINT `fk_Silo_Filial1`
     FOREIGN KEY (`Filial_idFilial`)
     REFERENCES `engsoftware`.`Filial` (`idFilial`)
