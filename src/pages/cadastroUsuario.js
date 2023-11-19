@@ -8,7 +8,8 @@ function cadastroUsuario() {
     <div className="container">
       <div className="container-login">
         <div className="wrap-login">
-          <form className="login-form" action="http://127.0.0.1:8000/processarCadastroUsuario/" method="post">
+          <form className="login-form" action={`${process.env.REACT_APP_BACKEND}/processarCadastroUsuario/`} method="post">
+
             <span className="login-form-title">Cadastro de Usuário</span>
             <span className="login-form-title">
             </span>
