@@ -5,6 +5,8 @@ import CadastroUsuario from './pages/cadastroUsuario';
 import CadastroFilial from './pages/cadastroFilial';
 import CadastroSilo from './pages/cadastroSilo';
 import TelaAdm from './pages/telaAdm';
+import TelaAnalista from './pages/telaAnalista';
+import ImagemAnalista from './pages/imagemAnalista';
 
 function checkUserRole() {
   const token = localStorage.getItem('token');
@@ -42,6 +44,8 @@ function App() {
           <Route path="/cadastroUsuario" element={<CadastroUsuario />} />
           <Route path="/cadastroFilial" element={<CadastroFilial />} />
           <Route path="/cadastroSilo" element={<CadastroSilo />} />
+          <Route path="/telaAnalista" element={<TelaAnalista />} />
+          <Route path="/imagemAnalista" element={<ImagemAnalista />} />
         </>
       )}
       {userRole === 'especialista' && (<></>)}
