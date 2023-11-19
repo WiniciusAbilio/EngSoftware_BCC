@@ -36,6 +36,7 @@ ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password
 
 ## Comandos Docker e Docker Compose 🐋
 Com o `Docker Compose` é possível ter o frontend, o backend e uma instância do banco de dados já configurados rodando em containers. Assim o desenvolvedor pode rodar a aplicação inteira com apenas um comando.
+
 O comando a seguir precisa ser executado dentro da pasta raiz no terminal:
 
 **Construir executar os containers Docker:** 
