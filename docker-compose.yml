@@ -1,0 +1,51 @@
+version: '3.3'
+
+services:
+
+  # Sobe uma instância do banco de dados.
+  database:
+    image: mysql:8.2.0
+    restart: always
+    container_name: engsoftware-database
+    environment:
+      MYSQL_DATABASE: 'engsoftware'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+
+  # Sobe uma instância do backend.
+  backend:
+    build:
+      context: .
+      #dockerfile: ./backend/Dockerfile
+    restart: always
+    container_name: engsoftware-backend
+    ports:
+      - '8080:8080'
+    expose:
+      - '8080'
+    links:
+      - "database:database"
+    depends_on:
+      - database
+
+  # Sobe uma instância do frontend.
+  frontend:
+    build: .
+    restart: always
+    container_name: engsoftware-frontend
+    ports:
+      - '3000:3000'
+    expose:
+      - '3000'
+    links:
+      - "backend:backend"
+    depends_on:
+      - database
+      - backend
+
+volumes:
+  my-db:
