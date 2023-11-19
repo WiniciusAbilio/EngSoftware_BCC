@@ -6,6 +6,11 @@ O projeto é um site que permite que empresas no ramo alimentício identifiquem 
 ## Comandos Frontend 💻
 Os comandos a seguir precisam ser executados dentro da pasta raiz no terminal:
 
+**Configurar variáveis de ambiente:**
+```bash
+cp .env.example .env
+```
+
 **Instalar requerimentos frontend:**
 ```bash
 npm install
@@ -18,6 +23,11 @@ npm start
 
 ## Comandos Backend 🖥️
 Os comandos a seguir precisam ser executados dentro da pasta backend pelo terminal:
+
+**Configurar variáveis de ambiente:**
+```bash
+cp .env.example .env
+```
 
 **Instalar requerimentos backend:**
 ```bash
