@@ -13,11 +13,11 @@ services:
     ports:
       - '3306:3306'
         # Para ser acessado de qualquer client MySQL na máquina host pelo
-        # "localhost:3306"
+        # 'localhost:3306'
     expose:
       - '3306'
     networks:
-      - "engsoftware"
+      - 'engsoftware'
     volumes:
       # Monta o diretório ./database contendo o código SQL para inicializar o
       # banco de dados. Assim ele será executado quando a imagem do MySQL for
@@ -30,14 +30,24 @@ services:
       dockerfile: ./backend/Dockerfile
     restart: always
     container_name: engsoftware-backend
+    environment:
+      DEBUG: true
+      SECRET_KEY: 'django-insecure-6@mj2-+r5(2thv&gk6ppoanfubc4er)8ls3!wv!e)3!%ezv-%3'
+      CORS_ALLOW_ALL_ORIGINS: true
+      FRONTEND_URL: 'http://engsoftware-frontend:3000'
+      DATABASE_NAME: 'engsoftware'
+      DATABASE_USER: 'root'
+      DATABASE_PASSWORD: 'password'
+      DATABASE_HOST: 'engsoftware-database'
+      DATABASE_PORT: ''
     ports:
-      - '8080:8080'
+      - '8000:8000'
     expose:
-      - '8080'
+      - '8000'
     links:
-      - "database"
+      - 'database'
     networks:
-      - "engsoftware"
+      - 'engsoftware'
     depends_on:
       - database
 
@@ -46,6 +56,8 @@ services:
     build: .
     restart: always
     container_name: engsoftware-frontend
+    environment:
+      REACT_APP_BACKEND_URL: 'http://engsoftware-backend:8000'
     ports:
       - '3000:3000'
     expose:
