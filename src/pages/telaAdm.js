@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; // Importe a funcionalidade de Link para criar links
-
+import Logout from '../components/logout';
 import '../styles/stylesTelaAdm.css';
 
 function TelaAdm() {
@@ -33,6 +33,7 @@ function TelaAdm() {
             </Link>
           </div>
 
+          <Logout/>
        
         </div>
       </div>

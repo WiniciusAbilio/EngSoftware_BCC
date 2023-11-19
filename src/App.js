@@ -5,6 +5,8 @@ import CadastroUsuario from './pages/cadastroUsuario';
 import CadastroFilial from './pages/cadastroFilial';
 import CadastroSilo from './pages/cadastroSilo';
 import TelaAdm from './pages/telaAdm';
+import TelaAnalista from './pages/telaAnalista';
+
 
 function checkUserRole() {
   const token = localStorage.getItem('token');
@@ -24,7 +26,9 @@ function RedirecionamentoPadrao() {
   if (userRole === 'admin') {
     window.location.pathname = '/telaAdm'
   } else if (userRole === 'especialista') {
-    window.location.pathname = '/outraRota'
+    window.location.pathname = '/telaEspecialista'
+  } else{
+    window.location.pathname = '/telaAnalista'
   }
   return null;
 }
@@ -45,7 +49,9 @@ function App() {
         </>
       )}
       {userRole === 'especialista' && (<></>)}
-      {userRole === 'normal' && (<></>)}
+      {userRole === 'normal' && (<>
+        <Route path="/telaAnalista" element={<TelaAnalista />} />
+      </>)}
     </Routes>
   );
 }

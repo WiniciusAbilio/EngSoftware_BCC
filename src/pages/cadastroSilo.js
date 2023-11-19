@@ -15,7 +15,9 @@ function cadastroSilo() {
             </span>
   
             <SelectFiliais/>
-
+    
+                
+     
             <div className='wrap-input'>
               <input className='input' name='nomeSilo' type='text' placeholder='Nome do Silo' required/>
             </div>

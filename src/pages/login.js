@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { Navigate } from 'react-router-dom';
 import aaIMG from '../assets/aa.png';
 import '../styles.css';
-
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -16,26 +15,24 @@ function Login() {
       const response = await fetch('http://127.0.0.1:8000/processarLogin/', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email: email, password: password }),
       });
 
-
       if (response.ok) {
         const data = await response.json();
 
-        console.log(data)
+        console.log(data);
 
-        if(data.error === "senha_invalida" || data.error === "usuario_nao_encontrado"){
-          <Navigate to="/"/>
+        if (data.error === "senha_invalida" || data.error === "usuario_nao_encontrado") {
+          setShowPopup(true);
           return;
         }
 
-        localStorage.setItem('token', data.access_token);//salva o token no localStorage
-        window.location.pathname = "/redirecionamentoPadrao" // Use navigate para redirecionar o usuário
+        localStorage.setItem('token', data.access_token); // Salva o token no localStorage
+        window.location.pathname = "/redirecionamentoPadrao"; // Use navigate para redirecionar o usuário
         return;
-
       } else {
         console.error('Erro de autenticação');
       }
@@ -82,6 +79,13 @@ function Login() {
               </button>
             </div>
           </form>
+
+          {showPopup && (
+            <div className="popup">
+              <p>Usuário ou senha incorretos. Tente novamente.</p>
+              <button onClick={() => setShowPopup(false)}>Fechar</button>
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -2,11 +2,14 @@ import json
 import jwt
 import datetime
 
+
 from django.shortcuts import redirect
 from django.http import JsonResponse
 from django.contrib.auth.hashers import check_password, make_password
 from .models import Usuario
 from backend.middlewares.middleware import middlewareAcessoAdm
+
+revoked_tokens = set()
 
 def processar_login(request):
     if request.method == 'POST':

@@ -166,3 +166,39 @@
     background: -moz-linear-gradient(to left, #21d4fd, #98FB98, #ADFF2F);
     background: linear-gradient(to left, #21d4fd, #98FB98, #ADFF2F);
 }
+/* styles.css (ou um arquivo específico para o popup) */
+
+.popup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .popup {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 128, 0, 0.2);
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .popup p {
+    color: #008000;
+    margin-bottom: 10px;
+  }
+  
+  .popup button {
+    background-color: #008000;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .popup button:hover {
+    background-color: #006400;
+  }
+  
