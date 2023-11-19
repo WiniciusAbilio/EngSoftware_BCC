@@ -1,31 +1,33 @@
 version: '3.3'
 
-services:
 
-  # Sobe uma instância do banco de dados.
+services:
+  # Banco de dados
   database:
     image: mysql:8.2.0
     restart: always
     container_name: engsoftware-database
     environment:
       MYSQL_DATABASE: 'engsoftware'
-      MYSQL_PASSWORD: 'password'
       MYSQL_ROOT_PASSWORD: 'password'
     ports:
       - '3306:3306'
+        # Para ser acessado de qualquer client MySQL na máquina host pelo
+        # "localhost:3306"
     expose:
       - '3306'
+    networks:
+      - "engsoftware"
     volumes:
       # Monta o diretório ./database contendo o código SQL para inicializar o
       # banco de dados. Assim ele será executado quando a imagem do MySQL for
       # inicializada.
         - ./database:/docker-entrypoint-initdb.d
 
-  # Sobe uma instância do backend.
   backend:
     build:
       context: .
-      #dockerfile: ./backend/Dockerfile
+      dockerfile: ./backend/Dockerfile
     restart: always
     container_name: engsoftware-backend
     ports:
@@ -33,11 +35,13 @@ services:
     expose:
       - '8080'
     links:
-      - "database:database"
+      - "database"
+    networks:
+      - "engsoftware"
     depends_on:
       - database
 
-  # Sobe uma instância do frontend.
+  # Frontend
   frontend:
     build: .
     restart: always
@@ -46,11 +50,13 @@ services:
       - '3000:3000'
     expose:
       - '3000'
-    links:
-      - "backend:backend"
+    networks:
+      - "engsoftware"
     depends_on:
       - database
       - backend
 
-volumes:
-  my-db:
+
+networks:
+  engsoftware:
+    driver: bridge
