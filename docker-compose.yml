@@ -15,6 +15,11 @@ services:
       - '3306:3306'
     expose:
       - '3306'
+    volumes:
+      # Monta o diretório ./database contendo o código SQL para inicializar o
+      # banco de dados. Assim ele será executado quando a imagem do MySQL for
+      # inicializada.
+        - ./database:/docker-entrypoint-initdb.d
 
   # Sobe uma instância do backend.
   backend:
