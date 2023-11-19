@@ -5,6 +5,7 @@ WORKDIR /home/python/app
 COPY backend/requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY ./backend ./
+COPY ./backend ./backend
+RUN python backend/manage.py migrate
 
-CMD [ "python", "manage.py", "runserver" ]
+CMD [ "python", "backend/manage.py", "runserver" ]
