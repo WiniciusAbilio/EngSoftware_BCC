@@ -41,5 +41,5 @@ O comando a seguir precisa ser executado dentro da pasta raiz no terminal:
 
 **Construir executar os containers Docker:** 
 ``` bash
-docker compose run
+docker compose up
 ```
