@@ -23,6 +23,11 @@ services:
       # banco de dados. Assim ele será executado quando a imagem do MySQL for
       # inicializada.
         - ./database:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD", "curl" ,"localhost:3306", "--output", "test"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   backend:
     build:
@@ -49,7 +54,8 @@ services:
     networks:
       - 'engsoftware'
     depends_on:
-      - database
+      database:
+        condition: service_healthy
 
   # Frontend
   frontend:
@@ -63,10 +69,7 @@ services:
     expose:
       - '3000'
     networks:
-      - "engsoftware"
-    depends_on:
-      - database
-      - backend
+      - 'engsoftware'
 
 
 networks:
