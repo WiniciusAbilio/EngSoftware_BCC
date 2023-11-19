@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from datetime import timedelta
 from pathlib import Path
+import environ
+
+# Carrega variáveis de ambiente
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,10 +26,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-6@mj2-+r5(2thv&gk6ppoanfubc4er)8ls3!wv!e)3!%ezv-%3'
+SECRET_KEY =  env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG').lower() == 'true' or False
 
 ALLOWED_HOSTS = []
 
@@ -77,10 +82,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = env('CORS_ALLOW_ALL_ORIGINS').lower() == 'true' or False
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
+    env('FRONTEND_URL'),
 ]
 
 
@@ -111,11 +116,11 @@ WSGI_APPLICATION = 'engsoftware.wsgi.application'
 DATABASES = {
  'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'engsoftware',
-        'USER': 'root',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',  # Ou o endereço do servidor MySQL
-        'PORT': '',  # Deixe em branco para usar a porta padrão
+        'NAME': env('DATABASE_NAME'),
+        'USER': env('DATABASE_USER'),
+        'PASSWORD': env('DATABASE_PASSWORD'),
+        'HOST': env('DATABASE_HOST'),  # Ou o endereço do servidor MySQL
+        'PORT': env('DATABASE_PORT'),  # Deixe em branco para usar a porta padrão
     }
 }
 
