@@ -13,7 +13,7 @@ function Login() {
 
     // Valide os campos do formulário, se necessário
     try {
-      const response = await fetch(`${process.env.REACT_APP_BACKEND}/processarLogin/`, {
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/processarLogin/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

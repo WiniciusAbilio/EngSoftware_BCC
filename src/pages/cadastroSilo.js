@@ -9,7 +9,7 @@ function cadastroSilo() {
     <div className="container">
       <div className="container-login">
         <div className="wrap-login">
-          <form className="login-form" action={`${process.env.REACT_APP_BACKEND}/processarCadastroSilo/`} method="post">
+          <form className="login-form" action={`${process.env.REACT_APP_BACKEND_URL}/processarCadastroSilo/`} method="post">
             <span className="login-form-title">Cadastro de Silo</span>
             <span className="login-form-title">
             </span>
