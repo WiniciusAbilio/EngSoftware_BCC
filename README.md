@@ -33,3 +33,8 @@ python manage.py runserver
 ```bash
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
 ```
+
+## Insert admin do MySQL 🔑
+```bash
+INSERT INTO Usuario (`email`, `nomeUsuario`, `senha`, `tipoUsuario`)  VALUES ('a@a', 'AdminUsersenha123', 'pbkdf2_sha256$600000$OaYFURcOPhHQcbiYJoHPpy$d6K+1QrNdE47ENdQnH+otuC3rzbuJQZRH+nNS8ShgHU=', 'admin');
+```
