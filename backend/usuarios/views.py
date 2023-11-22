@@ -14,11 +14,12 @@ def processar_login(request):
         # Obtenha os dados do formulário
         email = data.get('email')
         password = data.get('password')
+        print(email, data)
 
         # Verifique as credenciais manualmente
         try:
             user = Usuario.objects.get(email=email)
-            if check_password(password, user.password):
+            if (password == user.password):
                 # Se as credenciais estiverem corretas, gere um token JWT
                 payload = {
                     'usuario_email': user.email,

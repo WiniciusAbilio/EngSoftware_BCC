@@ -10,10 +10,9 @@ def listar_filiais(request):
     
     # Converte os dados das filiais para um formato JSON
     filiais_data = [
-        {'idFilial': filial.idFilial, 'nomeFilial': filial.nomeFilial}
+        {'idFilial': filial.idFilial, 'nomeFilial': filial.nomeFilial, 'cidade': filial.cidade, 'estado': filial.estado}
         for filial in filiais
     ]
-    print(filiais_data)
     # Retorna a lista de filiais como JSON
     return JsonResponse(filiais_data, safe=False)
 
