@@ -8,6 +8,22 @@
     margin: 0 auto;
 
 }
+
+.side-containerr {
+    padding-top: 30px;
+ }
+ 
+ .side-row {
+    padding: 30px;
+ }
+ 
+ .react-bootstrap-table thead { 
+     position: sticky; 
+     top: 0; 
+     background-color: #333; 
+     z-index: 1021; 
+     color: white; 
+ }
 .container-login{
     width: 100%;
     min-height: 100vh;

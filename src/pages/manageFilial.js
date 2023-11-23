@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
-import { Button, ButtonToolbar } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { FaEdit } from 'react-icons/fa';
 import { RiDeleteBin5Line } from 'react-icons/ri';
 import { getFiliais, deleteFilial } from "../components/filiaisLista";
-import AddFilialModal from "./addFilialModal";
 import UpdateFilialModal from "./updateFilialModal";
 
-const Manage = () => {
+import '../styles/stylesManage.css';
+<link rel="stylesheet" type="text/css" href="styles.css" />
+
+const ManageFilial = () => {
     const [filiais, setFiliais] = useState([]);
-    const [addModalShow, setAddModalShow] = useState(false);
     const [editModalShow, setEditModalShow] = useState(false);
     const [editFilial, setEditFilial] = useState([]);
     const [isUpdated, setIsUpdated] = useState(false);
@@ -37,11 +38,6 @@ const Manage = () => {
         setEditFilial(fil);
     };
 
-    const handleAdd = (e) => {
-        e.preventDefault();
-        setAddModalShow(true);
-    };
-
     const handleDelete = (e, idFilial) => {
         if (window.confirm('Are you sure ?')) {
             e.preventDefault();
@@ -56,7 +52,7 @@ const Manage = () => {
         }
     };
 
-    let AddModelClose = () => setAddModalShow(false);
+
     let EditModelClose = () => setEditModalShow(false);
 
     return (
@@ -70,12 +66,13 @@ const Manage = () => {
                             <th>Nome Filial</th>
                             <th>Cidade</th>
                             <th>Estado</th>
+                            <th>Ação</th>
                         </tr>
                     </thead>
                     <tbody>
                         {filiais.map((fil) =>
 
-                            <tr key={fil.id}>
+                            <tr key={fil.idFilial}>
                                 <td>{fil.idFilial}</td>
                                 <td>{fil.nomeFilial}</td>
                                 <td>{fil.cidade}</td>
@@ -91,22 +88,15 @@ const Manage = () => {
                                         onClick={event => handleUpdate(event, fil)}>
                                         <FaEdit />
                                     </Button>
-                                    <UpdateFilialModal show={editModalShow} filial={editFilial} setUpdated={setIsUpdated}
+                                    <UpdateFilialModal show={editModalShow} filial={editFilial}  
                                         onHide={EditModelClose}></UpdateFilialModal>
                                 </td>
                             </tr>)}
                     </tbody>
                 </Table>
-                <ButtonToolbar>
-                    <Button variant="primary" onClick={handleAdd}>
-                        Add Filial
-                    </Button>
-                    <AddFilialModal show={addModalShow} setUpdated={setIsUpdated}
-                        onHide={AddModelClose}></AddFilialModal>
-                </ButtonToolbar>
             </div>
         </div>
     );
 
 };
-export default Manage;
+export default ManageFilial;

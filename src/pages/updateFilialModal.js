@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+
 import { Modal, Col, Row, Form, Button } from 'react-bootstrap';
 import { FormControl, FormGroup, FormLabel } from 'react-bootstrap';
 import { updateFilial } from '../components/filiaisLista';
-
+import '../styles/stylesManage.css';
+<link rel="stylesheet" type="text/css" href="styles.css" />
 
 
 const UpdateFilialModal = (props) => {
@@ -20,7 +21,7 @@ const UpdateFilialModal = (props) => {
     };
 
     return (
-        <div className="container">
+        
 
             <Modal
                 {...props}
@@ -37,24 +38,24 @@ const UpdateFilialModal = (props) => {
                     <Row>
                         <Col sm={6}>
                             <Form onSubmit={handleSubmit}>
-                                <Form.Group controlId="nomeFilial">
-                                    <Form.Label>Nome Filial</Form.Label>
-                                    <Form.Control type="text" name="nomeFilial" required placeholder="" />
-                                </Form.Group>
-                                <Form.Group controlId="cidade">
-                                    <Form.Label>cidade</Form.Label>
-                                    <Form.Control type="text" name="cidade" required placeholder="" />
-                                </Form.Group>
-                                <Form.Group controlId="estado">
-                                    <Form.Label>estado</Form.Label>
-                                    <Form.Control type="text" name="estado" required placeholder="" />
-                                </Form.Group>
-                                <Form.Group>
+                                <FormGroup controlId="nomeFilial">
+                                    <FormLabel>Nome Filial</FormLabel>
+                                    <FormControl type="text" name="nomeFilial" required placeholder="" />
+                                </FormGroup>
+                                <FormGroup controlId="cidade">
+                                    <FormLabel>cidade</FormLabel>
+                                    <FormControl type="text" name="cidade" required placeholder="" />
+                                </FormGroup>
+                                <FormGroup controlId="estado">
+                                    <FormLabel>estado</FormLabel>
+                                    <FormControl type="text" name="estado" required placeholder="" />
+                                </FormGroup>
+                                <FormGroup>
                                     <p></p>
                                     <Button variant="primary" type="submit">
                                         Submit
                                     </Button>
-                                </Form.Group>
+                                </FormGroup>
                             </Form>
                         </Col>
                     </Row>
@@ -66,7 +67,6 @@ const UpdateFilialModal = (props) => {
 
                 </Modal.Footer>
             </Modal>
-        </div>
     );
 };
 
