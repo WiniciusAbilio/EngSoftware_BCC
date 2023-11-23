@@ -3,51 +3,51 @@ import { Table } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import { FaEdit } from 'react-icons/fa';
 import { RiDeleteBin5Line } from 'react-icons/ri';
-import { getSilos, deleteSilo } from "../components/silosLista";
-import UpdateSiloModal from "./updateSiloModal";
+import { getUsuarios, deleteUsuario } from "../components/usuariosLista";
+import UpdateUsuarioModal from "./updateUsuarioModal";
 
 import '../styles/stylesManage.css';
 <link rel="stylesheet" type="text/css" href="styles.css" />
 
-const ManageSilo = () => {
-    const [silos, setSilos] = useState([]);
+const ManageUsuario = () => {
+    const [usuarios, setUsuarios] = useState([]);
     const [editModalShow, setEditModalShow] = useState(false);
-    const [editSilo, setEditSilo] = useState([]);
+    const [editUsuario, setEditUsuario] = useState([]);
     const [isUpdated, setIsUpdated] = useState(false);
 
     useEffect(() => {
         let mounted = true;
-        if (silos.length && !isUpdated) {
+        if (usuarios.length && !isUpdated) {
             return;
         }
-        getSilos()
+        getUsuarios()
             .then(data => {
                 if (mounted) {
-                    setSilos(data);
+                    setUsuarios(data);
                 }
             })
         return () => {
             mounted = false;
             setIsUpdated(false);
         }
-    }, [isUpdated, silos])
+    }, [isUpdated, usuarios])
 
-    const handleUpdate = (e, sil) => {
+    const handleUpdate = (e, user) => {
         e.preventDefault();
         setEditModalShow(true);
-        setEditSilo(sil);
+        setEditUsuario(user);
     };
 
-    const handleDelete = (e, idSilo) => {
+    const handleDelete = (e, idUsuario) => {
         if (window.confirm('Are you sure ?')) {
             e.preventDefault();
-            deleteSilo(idSilo)
+            deleteUsuario(idUsuario)
                 .then((result) => {
                     alert(result);
                     setIsUpdated(true);
                 },
                     (error) => {
-                        alert("Failed to Delete Silo");
+                        alert("Failed to Delete Usuario");
                     })
         }
     };
@@ -63,30 +63,33 @@ const ManageSilo = () => {
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Nome Silo</th>
-                            <th>Filial</th>
+                            <th>Nome Usuario</th>
+                            <th>Email</th>
+                            <th>Tipo Usuário</th>
                             <th>Ação</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {silos.map((sil) =>
+                        {usuarios.map((user) =>
 
-                            <tr key={sil.idSilo}>
-                                <td>{sil.idSilo}</td>
-                                <td>{sil.nomeFilial}</td>
+                            <tr key={user.idUsuario}>
+                                <td>{user.idUsuario}</td>
+                                <td>{user.nome}</td>
+                                <td>{user.email}</td>
+                                <td>{user.tipoUsuario}</td>
                                 <td>
 
                                     <Button className="mr-2" variant="danger"
-                                        onClick={event => handleDelete(event, sil.idSilo)}>
+                                        onClick={event => handleDelete(event, user.idUsuario)}>
                                         <RiDeleteBin5Line />
                                     </Button>
                                     <span>&nbsp;&nbsp;&nbsp;</span>
                                     <Button className="mr-2"
-                                        onClick={event => handleUpdate(event, sil)}>
+                                        onClick={event => handleUpdate(event, user)}>
                                         <FaEdit />
                                     </Button>
-                                    <UpdateSiloModal show={editModalShow} silo={editSilo}  
-                                        onHide={EditModelClose}></UpdateSiloModal>
+                                    <UpdateUsuarioModal show={editModalShow} usuario={editUsuario}  
+                                        onHide={EditModelClose}></UpdateUsuarioModal>
                                 </td>
                             </tr>)}
                     </tbody>
@@ -96,4 +99,4 @@ const ManageSilo = () => {
     );
 
 };
-export default ManageSilo;
+export default ManageUsuario;

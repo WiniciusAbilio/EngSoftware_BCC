@@ -16,21 +16,19 @@ export function deleteSilo(idSilo) {
   .then(response => response.data)
 }
 
-export function addSilo(filial){
+export function addSilo(silo){
   return axios.post('http://127.0.0.1:8000/silos/', {
     idSilo:null,
-    nomeSilo:filial.nomeSilo.value,
-    cidade:filial.cidade.value,
-    estado:filial.estado.value,
+    nomeSilo:silo.nomeSilo.value,
+    cidade:silo.cidade.value,
+    estado:silo.estado.value,
   })
     .then(response=>response.data)
 }
 
-export function updateSilo(idSilo, filial) {
+export function updateSilo(idSilo, silo) {
   return axios.put('http://127.0.0.1:8000/silos/' + idSilo + '/', {
-    nomeSilo:filial.nomeSilo.value,
-    cidade:filial.cidade.value,
-    estado:filial.estado.value,
+    nomeSilo:silo.nomeSilo.value,
   })
    .then(response => response.data)
 }
