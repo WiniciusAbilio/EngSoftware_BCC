@@ -6,7 +6,8 @@ import CadastroFilial from './pages/cadastroFilial';
 import CadastroSilo from './pages/cadastroSilo';
 import TelaAdm from './pages/telaAdm';
 import TelaAnalista from './pages/telaAnalista';
-
+import ManageFilial from './pages/manageFilial';
+import ManageUsuario from './pages/manageUsuario';
 
 function checkUserRole() {
   const token = localStorage.getItem('token');
@@ -40,12 +41,15 @@ function App() {
     <Routes>
       <Route path="/redirecionamentoPadrao" element={<RedirecionamentoPadrao />} />
       <Route path="/" element={userRole ? <Navigate to="/redirecionamentoPadrao" replace={true} /> : <Login />} />
+      
       {userRole === 'admin' && (
         <>
           <Route path="/telaAdm" element={<TelaAdm />} />
           <Route path="/cadastroUsuario" element={<CadastroUsuario />} />
           <Route path="/cadastroFilial" element={<CadastroFilial />} />
           <Route path="/cadastroSilo" element={<CadastroSilo />} />
+          <Route path="/manageFilial" element={<ManageFilial />} />
+          <Route path="/manageUsuario" element={<ManageUsuario />} />
         </>
       )}
       {userRole === 'especialista' && (<></>)}

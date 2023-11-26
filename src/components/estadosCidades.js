@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import '../styles.css';
 
-
-
-function CidadesPorEstado() {
+function CidadesPorEstado({ onEstadoChange, onCidadeChange, selectedEstado, selectedCidade }) {
   const [estados, setEstados] = useState([]);
-  const [estadoSelecionado, setEstadoSelecionado] = useState('');
   const [cidades, setCidades] = useState([]);
-  const [cidadeSelecionada, setCidadeSelecionada] = useState('');
 
   useEffect(() => {
     // Fazer uma solicitação GET para obter a lista de estados usando Fetch
@@ -23,9 +18,9 @@ function CidadesPorEstado() {
 
   const handleEstadoChange = (event) => {
     const estado = event.target.value;
-    setEstadoSelecionado(estado);
+    onEstadoChange(estado);
     // Limpar a cidade selecionada quando o estado muda
-    setCidadeSelecionada('');
+    onCidadeChange('');
 
     if (estado) {
       // Fazer uma solicitação GET para obter a lista de municípios do estado selecionado usando Fetch
@@ -41,7 +36,7 @@ function CidadesPorEstado() {
   };
 
   return (
-<div>
+    <div>
       <div style={{ marginBottom: '1rem' }}>
         <select
           id="estado"
@@ -49,7 +44,7 @@ function CidadesPorEstado() {
           required
           className={`mt-1 custom-select`}
           onChange={handleEstadoChange}
-          value={estadoSelecionado}
+          value={selectedEstado}
         >
           <option value="">Selecione um estado</option>
           {estados.map((estado) => (
@@ -65,8 +60,8 @@ function CidadesPorEstado() {
           name="cidade"
           required
           className={`mt-1 custom-select`}
-          onChange={(e) => setCidadeSelecionada(e.target.value)}
-          value={cidadeSelecionada}
+          onChange={(e) => onCidadeChange(e.target.value)}
+          value={selectedCidade}
         >
           <option value="">Selecione uma cidade</option>
           {cidades.map((cidade) => (

@@ -1,43 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/stylesSelects.css';
+import { TokenJWT } from './utilsTokenJWT';
 
-function SelectFiliais() {
-  const [data, setData] = useState([]); // Corrigido para usar useState e inicializar com um array vazio
+function SelectFiliais({ onFilialChange }) {
+  const [data, setData] = useState([]);
   const [selectedValue, setSelectedValue] = useState('');
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('http://127.0.0.1:8000/listarFiliais/', {
-          method: 'GET'
+        const response = await fetch('http://localhost:8000/listarFilial/', {
+          method: 'GET',
+          headers: {
+            'Authorization': `${TokenJWT}`,
+            'Content-Type': 'application/json',
+          },
         });
 
         if (response.ok) {
-          const jsonData = await response.json(); // Renomeado para evitar conflito com a variável data
-
-          setData(jsonData); // Preencha o estado data com os dados da resposta
+          const jsonData = await response.json();
+          setData(jsonData);
         }
       } catch (error) {
         console.error('Erro ao processar a solicitação:', error);
       }
     }
 
-    fetchData(); // Chame a função fetchData para buscar os dados
+    fetchData();
 
-  }, []); // O segundo argumento vazio [] garante que o useEffect seja executado apenas uma vez após a montagem do componente
+  }, []);
 
-  // Adicione o console.log para depuração
   useEffect(() => {
     console.log('selectedValue:', selectedValue);
-  }, [selectedValue]);
+    // Chame a função de mudança quando o valor for alterado
+    onFilialChange(selectedValue);
+  }, [selectedValue, onFilialChange]);
+
+  const handleFilialChange = (event) => {
+    const selectedFilial = event.target.value;
+    setSelectedValue(selectedFilial);
+  };
 
   return (
-<div className="select-container" style={{ marginBottom: '1rem' }}>
+    <div className="select-container" style={{ marginBottom: '1rem' }}>
       <select
         id="selectData"
         name="idFilial"
         value={selectedValue}
-        onChange={(e) => setSelectedValue(e.target.value)}
+        onChange={handleFilialChange}
         className="custom-select"
         required
       >

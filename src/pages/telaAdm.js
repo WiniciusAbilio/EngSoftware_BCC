@@ -33,6 +33,22 @@ function TelaAdm() {
             </Link>
           </div>
 
+          <div className='container-login-form-btn'>
+            <Link to='/manageUsuario'>
+              <button className='logon-form-btn'>
+                GERENCIAR USUÁRIOS
+              </button>
+            </Link>
+          </div>
+
+          <div className='container-login-form-btn'>
+            <Link to='/manageFilial'>
+              <button className='logon-form-btn'>
+                GERENCIAR FILIAIS
+              </button>
+            </Link>
+          </div>
+
           <Logout/>
        
         </div>

@@ -66,6 +66,7 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=14),
 }
 
+APPEND_SLASH=False
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',

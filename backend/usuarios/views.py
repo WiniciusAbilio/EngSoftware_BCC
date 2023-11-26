@@ -3,13 +3,61 @@ import jwt
 import datetime
 
 
-from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.contrib.auth.hashers import check_password, make_password
 from .models import Usuario
 from backend.middlewares.middleware import middlewareAcessoAdm
 
-revoked_tokens = set()
+@middlewareAcessoAdm
+def listar_usuarios(request):
+    usuarios = Usuario.objects.all()
+    usuarios_list = []
+    for usuario in usuarios:
+        usuarios_list.append({
+            'email': usuario.email,
+            'nome': usuario.nome,
+            'senha': usuario.password,
+            'tipoUsuario': usuario.tipoUsuario,
+         })
+    return JsonResponse({'usuarios': usuarios_list}, safe=False)
+
+@middlewareAcessoAdm
+def atualizar_usuario(request):
+    data = json.loads(request.body)
+    print(data)
+    email = data.get('email')
+    senha = data.get('senha')
+    
+    # Busca o usuário pelo e-mail
+    usuario = get_object_or_404(Usuario, email=email)
+
+    # Atualiza os campos do usuário
+    usuario.nome = data.get('nome', usuario.nome)
+    
+    # Verifica se a senha foi fornecida e a atualiza
+    if senha:
+        usuario.password = make_password(senha)
+    
+    usuario.tipoUsuario = data.get('tipoUsuario', usuario.tipoUsuario)
+
+    # Salva o usuário no banco de dados
+    usuario.save()
+
+    return JsonResponse({'mensagem': f'Usuário {email} atualizado com sucesso'})
+
+@middlewareAcessoAdm
+def deletar_usuario(request):
+    data = json.loads(request.body)
+    # Encontrar o usuário pelo email
+    email = data.get('id')
+
+    usuario = get_object_or_404(Usuario, email=email)
+
+    # Agora, você pode excluir o usuário
+    usuario.delete()
+
+    return JsonResponse({'mensagem': f'Usuário com email {email} excluído com sucesso.'})
 
 def processar_login(request):
     if request.method == 'POST':
@@ -53,5 +101,5 @@ def processar_cadastro_usuario(request):
         usuario.save()
         
         # Redirecione para uma página de sucesso ou outra página relevante
-        return redirect('http://localhost:3000/telaAdm')
+        return JsonResponse({'mensagem': 'Usuario cadastrado com sucesso'}, status=200)
 
