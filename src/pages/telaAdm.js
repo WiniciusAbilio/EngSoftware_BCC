@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; // Importe a funcionalidade de Link para criar links
-import Logout from '../components/logout';
+
 import '../styles/stylesTelaAdm.css';
 
 function TelaAdm() {
@@ -36,7 +36,7 @@ function TelaAdm() {
           <div className='container-login-form-btn'>
             <Link to='/manageUsuario'>
               <button className='logon-form-btn'>
-                GERENCIAR USUÁRIOS
+                EDITAR USUÁRIO
               </button>
             </Link>
           </div>
@@ -44,12 +44,27 @@ function TelaAdm() {
           <div className='container-login-form-btn'>
             <Link to='/manageFilial'>
               <button className='logon-form-btn'>
-                GERENCIAR FILIAIS
+                EDITAR FILIAL
               </button>
             </Link>
           </div>
 
-          <Logout/>
+          <div className='container-login-form-btn'>
+            <Link to='/manageSilo'>
+              <button className='logon-form-btn'>
+                EDITAR SILO
+              </button>
+            </Link>
+          </div>
+
+          <div className='container-login-form-btn'>
+            <Link to='/cadastroSilo'>
+              <button className='logon-form-btn'>
+                LOG OUT
+              </button>
+            </Link>
+          </div>
+
        
         </div>
       </div>
