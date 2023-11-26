@@ -1,51 +1,42 @@
-import React from 'react';
-import axios from 'axios';
-import '../styles.css';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import SelectFiliais from '../components/selectFiliais';
-import { TokenJWT } from '../components/utilsTokenJWT';
+
+import '../styles.css';
 
 function CadastroSilo() {
-  const [nomeSilo, setNomeSilo] = React.useState('');
-  const [selectedFilial, setSelectedFilial] = React.useState('');
+  const [formularioEnviado, setFormularioEnviado] = useState(false);
 
-  const handleSubmit = async (event) => {
+  const handleCadastroConcluido = (event) => {
     event.preventDefault();
 
-    const data = {
-      idFilial: selectedFilial,
-      nomeSilo: nomeSilo
-    };
-
-
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `${TokenJWT}`,
-      },
-    };
-
-    try {
-      const response = await axios.post('http://localhost:8000/processarCadastroSilo/', data, config);
-
-      if (response.status === 200) {
-        window.location.href = '/telaAdm';
-        console.log('Silo cadastrado com sucesso!');
-      } else {
-        console.error('Falha ao cadastrar silo. Status:', response.status);
-      }
-    } catch (error) {
-      console.error('Erro ao enviar solicitação:', error);
+    // Adicione validações adicionais conforme necessário
+    // Exemplo: verificar se o nome do Silo foi preenchido
+    const nomeSilo = event.target.elements.nomeSilo.value;
+    if (!nomeSilo) {
+      toast.error('Por favor, preencha todos os campos antes de cadastrar.');
+      return;
     }
+
+    // Se todos os campos foram preenchidos, exiba a mensagem de sucesso
+    toast.success('Cadastro de Silo concluído com sucesso!');
+    setFormularioEnviado(true);
   };
 
   return (
     <div className="container">
       <div className="container-login">
         <div className="wrap-login">
-          <form className="login-form" onSubmit={handleSubmit}>
+          <form
+            className="login-form"
+            action="http://127.0.0.1:8000/processarCadastroSilo/"
+            method="post"
+            onSubmit={handleCadastroConcluido}
+          >
             <span className="login-form-title">Cadastro de Silo</span>
-
-            <SelectFiliais onFilialChange={(filial) => setSelectedFilial(filial)} />
+            <SelectFiliais />
 
             <div className='wrap-input'>
               <input
@@ -54,8 +45,6 @@ function CadastroSilo() {
                 type='text'
                 placeholder='Nome do Silo'
                 required
-                value={nomeSilo}
-                onChange={(e) => setNomeSilo(e.target.value)}
               />
             </div>
 
@@ -65,8 +54,42 @@ function CadastroSilo() {
               </button>
             </div>
           </form>
+
+          {/* Adicionando o botão de voltar */}
+          <div className='container-login-form-btn'>
+            <Link to="/">
+              <button className='logon-form-btn'>
+                <span>&#8592;</span> Voltar
+              </button>
+            </Link>
+          </div>
+
+          {/* ToastContainer para exibir a mensagem de cadastro concluído */}
+          {formularioEnviado && (
+            <div className="popup-container">
+              <div className="popup">
+                <p>Cadastro de Silo concluído com sucesso!</p>
+                <button onClick={() => setFormularioEnviado(false)}>
+                  Fechar Popup
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
+
+      {/* ToastContainer para exibir a mensagem de teste bem-sucedido */}
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }
