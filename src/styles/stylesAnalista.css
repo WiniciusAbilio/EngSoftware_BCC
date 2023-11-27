@@ -53,4 +53,41 @@
   background-color: #45a049;
 }
 
+li {
+  list-style-type: none;
+  margin-bottom: 10px;
+}
+
+li button {
+  background-color: #dc3545; /* Cor de fundo vermelha */
+  color: #fff; /* Cor do texto branca */
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+li button:hover {
+  background-color: #c82333; /* Cor de fundo vermelha mais escura ao passar o mouse */
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.actions button {
+  margin-top: 10px; /* Adjust the margin to create space between "Cancelar Todos" and "Confirmar" */
+  background-color: #28a745; /* Green background color for "Confirmar" button */
+  color: #fff; /* White text color */
+  border: none;
+  padding: 10px 20px; /* Adjust padding to make it bigger */
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.actions button:hover {
+  background-color: #218838; /* Darker green background color on hover */
+}
 /* Add any additional styles as needed */

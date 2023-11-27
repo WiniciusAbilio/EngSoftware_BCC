@@ -1,6 +1,15 @@
 import React, { useState, useRef } from "react";
 import "../styles/stylesAnalista.css";
 
+const FileItem = ({ file, onCancel }) => {
+  return (
+    <li>
+      {file.name}
+      <button className="uploads" onClick={() => onCancel(file)}>Remover</button>
+    </li>
+  );
+};
+
 const DragDropFilesV2 = ({ onFilesSelected }) => {
   const [files, setFiles] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
@@ -21,6 +30,20 @@ const DragDropFilesV2 = ({ onFilesSelected }) => {
 
     // Rest of your code for handling the upload
     // ...
+
+    // Reset the component state after uploading
+    setFiles(null);
+    setShowPopup(true);
+  };
+
+  const handleCancel = (fileToCancel) => {
+    const remainingFiles = Array.from(files).filter((file) => file !== fileToCancel);
+    if (remainingFiles.length > 0) {
+      setFiles(remainingFiles);
+    } else {
+      // Se não houver mais arquivos, redefine para o estado inicial (null)
+      setFiles(null);
+    }
   };
 
   const closePopup = () => {
@@ -32,11 +55,11 @@ const DragDropFilesV2 = ({ onFilesSelected }) => {
       <div className="uploads">
         <ul>
           {Array.from(files).map((file, idx) => (
-            <li key={idx}>{file.name}</li>
+            <FileItem key={idx} file={file} onCancel={handleCancel} />
           ))}
         </ul>
         <div className="actions">
-          <button onClick={() => setFiles(null)}>Cancelar</button>
+          <button onClick={() => setFiles(null)}>Remover Todos</button>
           <button onClick={handleUpload}>Confirmar</button>
         </div>
         {showPopup && (
