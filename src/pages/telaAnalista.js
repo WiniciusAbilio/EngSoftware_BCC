@@ -13,7 +13,7 @@ const TelaAnalista = () => {
           <h1>Bem-vindo, Analista!</h1>
 
           <div className='container-login-form-btn'>
-            <Link to='/criarRelatorio'>
+            <Link to='/imagemAnalista'>
               <button className='logon-form-btn'>
                 Relatório
               </button>
