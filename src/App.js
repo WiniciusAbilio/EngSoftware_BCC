@@ -1,63 +1,29 @@
+// App.js
 import React from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
-import Login from './pages/login';
-import CadastroUsuario from './pages/cadastroUsuario';
-import CadastroFilial from './pages/cadastroFilial';
-import CadastroSilo from './pages/cadastroSilo';
-import TelaAdm from './pages/telaAdm';
-import TelaAnalista from './pages/telaAnalista';
-import ManageFilial from './pages/manageFilial';
-import ManageUsuario from './pages/manageUsuario';
+import RelatorioAcuracia from './pages/relatorioAcuracia';
 
-function checkUserRole() {
-  const token = localStorage.getItem('token');
-  if (token) {
-    const payloadBase64 = token.split('.')[1];
-    const decodedPayload = atob(payloadBase64);
-    const payload = JSON.parse(decodedPayload);
-    return payload.usuario_tipo;
-  }
-  return null;
-}
-
-function RedirecionamentoPadrao() {
-
-  const userRole = checkUserRole();
-
-  if (userRole === 'admin') {
-    window.location.pathname = '/telaAdm'
-  } else if (userRole === 'especialista') {
-    window.location.pathname = '/telaEspecialista'
-  } else{
-    window.location.pathname = '/telaAnalista'
-  }
-  return null;
-}
-
-function App() {
-  const userRole = checkUserRole();
+const App = () => {
+  // Simulação de dados do relatório
+  const relatorioData = [
+    {
+      nomeUsuario: 'John Doe',
+      dataEmissao: '2023-01-01',
+      acuracia: '95%',
+      urlFoto: 'https://example.com/photo.jpg',
+      cidade: 'City',
+      filial: 'Branch',
+      silo: 'Silo',
+      Usuario_email: 'john@example.com',
+    },
+    // Adicione mais dados conforme necessário
+  ];
 
   return (
-    <Routes>
-      <Route path="/redirecionamentoPadrao" element={<RedirecionamentoPadrao />} />
-      <Route path="/" element={userRole ? <Navigate to="/redirecionamentoPadrao" replace={true} /> : <Login />} />
-      
-      {userRole === 'admin' && (
-        <>
-          <Route path="/telaAdm" element={<TelaAdm />} />
-          <Route path="/cadastroUsuario" element={<CadastroUsuario />} />
-          <Route path="/cadastroFilial" element={<CadastroFilial />} />
-          <Route path="/cadastroSilo" element={<CadastroSilo />} />
-          <Route path="/manageFilial" element={<ManageFilial />} />
-          <Route path="/manageUsuario" element={<ManageUsuario />} />
-        </>
-      )}
-      {userRole === 'especialista' && (<></>)}
-      {userRole === 'normal' && (<>
-        <Route path="/telaAnalista" element={<TelaAnalista />} />
-      </>)}
-    </Routes>
+    <div>
+      <h1>Relatório de Acurácia</h1>
+      <RelatorioAcuracia relatorioData={relatorioData} />
+    </div>
   );
-}
+};
 
 export default App;
