@@ -168,6 +168,26 @@
 }
 /* styles.css (ou um arquivo específico para o popup) */
 
+#fileInputContainer {
+    border: 2px dashed #aaaaaa;
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  #fileInputContainer label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  #fileInputContainer input {
+    display: none;
+  }
+  
+  #fileInputContainer:hover {
+    border-color: #555555;
+  }
 .popup-container {
     display: flex;
     justify-content: center;
@@ -200,27 +220,5 @@
   
   .popup button:hover {
     background-color: #006400;
-  }
-  /* Adicione este CSS no seu arquivo de estilos (por exemplo, styles.css) */
-
-#fileInputContainer {
-    border: 2px dashed #aaaaaa;
-    padding: 20px;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  #fileInputContainer label {
-    display: block;
-    font-size: 16px;
-    margin-bottom: 10px;
-  }
-  
-  #fileInputContainer input {
-    display: none;
-  }
-  
-  #fileInputContainer:hover {
-    border-color: #555555;
   }
   
