@@ -3,7 +3,6 @@ import { Table, Button, Form } from 'react-bootstrap';
 import { FaEdit, FaCheck, FaTimes } from 'react-icons/fa';
 import { RiDeleteBin5Line } from 'react-icons/ri';
 import { getTabela, deleteTabela, updateTabela } from "../components/manageTabela";
-import BotaoVoltar from "../components/botaoVoltar";
 
 import '../styles/stylesManage.css';
 import '../styles.css';
@@ -112,7 +111,6 @@ const ManageUsuario = () => {
     <div className="container-fluid side-container">
       <div className="row side-row">
         <p id="manage"></p>
-        <BotaoVoltar/>
         <Table striped bordered hover className="react-bootstrap-table" id="dataTable">
           <thead>
             <tr>
