@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import '../styles.css';
 import { TokenJWT } from '../components/utilsTokenJWT';
-import BotaoVoltar from '../components/botaoVoltar';
 
 function CadastroUsuario() {
   const handleSubmit = async (event) => {
@@ -66,7 +65,6 @@ function CadastroUsuario() {
                 CADASTRAR
               </button>
             </div>
-            <BotaoVoltar/>
           </form>
         </div>
       </div>

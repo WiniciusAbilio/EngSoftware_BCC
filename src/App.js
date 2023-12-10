@@ -1,65 +1,32 @@
-import React from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
-import Login from './pages/login';
-import CadastroUsuario from './pages/cadastroUsuario';
-import CadastroFilial from './pages/cadastroFilial';
-import CadastroSilo from './pages/cadastroSilo';
-import TelaAdm from './pages/telaAdm';
-import TelaAnalista from './pages/telaAnalista';
-import ManageFilial from './pages/manageFilial';
-import ManageUsuario from './pages/manageUsuario';
-import ManageSilo from './pages/manageSilo';
+// App.js
+import React, { useState } from 'react';
+import ApprovalScreen from './ApprovalScreen';
+import './styles.css';
 
-function checkUserRole() {
-  const token = localStorage.getItem('token');
-  if (token) {
-    const payloadBase64 = token.split('.')[1];
-    const decodedPayload = atob(payloadBase64);
-    const payload = JSON.parse(decodedPayload);
-    return payload.usuario_tipo;
-  }
-  return null;
-}
+const App = () => {
+  const [reports, setReports] = useState([
+    { content: 'Relatório 1' },
+    { content: 'Relatório 2' },
+    // Adicione mais relatórios conforme necessário
+  ]);
 
-function RedirecionamentoPadrao() {
+  const handleApprove = (index) => {
+    alert(`Relatório ${index + 1} aprovado!`); // Adicione a lógica de aprovação aqui
+    // Atualize o estado para refletir a aprovação
+    const updatedReports = [...reports];
+    updatedReports[index].approved = true;
+    setReports(updatedReports);
+  };
 
-  const userRole = checkUserRole();
+  const handleReject = (index) => {
+    alert(`Relatório ${index + 1} rejeitado!`); // Adicione a lógica de rejeição aqui
+    // Atualize o estado para refletir a rejeição
+    const updatedReports = [...reports];
+    updatedReports[index].rejected = true;
+    setReports(updatedReports);
+  };
 
-  if (userRole === 'admin') {
-    window.location.pathname = '/telaAdm'
-  } else if (userRole === 'especialista') {
-    window.location.pathname = '/telaEspecialista'
-  } else{
-    window.location.pathname = '/telaAnalista'
-  }
-  return null;
-}
-
-function App() {
-  const userRole = checkUserRole();
-
-  return (
-    <Routes>
-      <Route path="/redirecionamentoPadrao" element={<RedirecionamentoPadrao />} />
-      <Route path="/" element={userRole ? <Navigate to="/redirecionamentoPadrao" replace={true} /> : <Login />} />
-      
-      {userRole === 'admin' && (
-        <>
-          <Route path="/telaAdm" element={<TelaAdm />} />
-          <Route path="/cadastroUsuario" element={<CadastroUsuario />} />
-          <Route path="/cadastroFilial" element={<CadastroFilial />} />
-          <Route path="/cadastroSilo" element={<CadastroSilo />} />
-          <Route path="/manageFilial" element={<ManageFilial />} />
-          <Route path="/manageSilo" element={<ManageSilo />} />
-          <Route path="/manageUsuario" element={<ManageUsuario />} />
-        </>
-      )}
-      {userRole === 'especialista' && (<></>)}
-      {userRole === 'normal' && (<>
-        <Route path="/telaAnalista" element={<TelaAnalista />} />
-      </>)}
-    </Routes>
-  );
-}
+  return <ApprovalScreen reports={reports} onApprove={handleApprove} onReject={handleReject} />;
+};
 
 export default App;
