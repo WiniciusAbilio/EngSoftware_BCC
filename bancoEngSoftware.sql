@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `engsoftware`.`Relatorio` (
   `dataEmissao` VARCHAR(45) NOT NULL,
   `acuracia` VARCHAR(45) NOT NULL,
   `urlFoto` VARCHAR(45) NOT NULL,
+  `cidade` VARCHAR(45) NOT NULL,
   `filial` VARCHAR(45) NOT NULL,
   `silo` VARCHAR(45) NOT NULL,
   `Usuario_email` VARCHAR(150) NOT NULL,
