@@ -7,7 +7,73 @@ from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.contrib.auth.hashers import check_password, make_password
 from .models import Usuario
+from .modelsRelatorio import Relatorio
 from backend.middlewares.middleware import middlewareAcessoAdm
+import random
+
+
+
+def update_relatorio(request):
+    data = json.loads(request.body)
+    idRelatorio = data.get('idRelatorio')
+    status = data.get('status')
+
+    relatorio = Relatorio.objects.get(idRelatorio=idRelatorio)
+    relatorio.status = status
+    relatorio.save()
+
+    return JsonResponse({'mensagem': 'Relatório cadastrado com sucesso'}, status=200)
+
+def listar_relatorio(request):
+    relatorios = Relatorio.objects.all()
+    relatorios_list = []
+
+    for relatorio in relatorios:
+        relatorios_list.append({
+            'idRelatorio': relatorio.idRelatorio,
+            'nomeUsuario': relatorio.nomeUsuario,
+            'dataEmissao': relatorio.dataEmissao,
+            'acuracia': relatorio.acuracia,
+            'filial': relatorio.filial,
+            'silo': relatorio.silo,
+            'Usuario_email': relatorio.Usuario_email,
+            'urlFoto': relatorio.urlFoto,
+            'status': relatorio.status
+        })
+
+    return JsonResponse({'relatorios': relatorios_list}, safe=False)
+
+def processar_cadastro_relatorio(request):
+    data = json.loads(request.body)
+    nomeUsuario = data.get('nomeUsuario')
+    dataEmissao = data.get('dataEmissao')
+    acuracia = f'{random.randint(1, 100)}%'
+    filial = data.get('filial')
+    silo = data.get('silo')
+    Usuario_email = data.get('Usuario_email')
+    status = 'esperando'
+
+    # Supondo que você tenha a lógica de tratamento do upload de arquivos para 'urlFoto'
+    urlFoto = f"{Usuario_email}_{dataEmissao}"
+
+    # Crie um novo relatório no banco de dados
+    relatorio = Relatorio(
+        nomeUsuario=nomeUsuario,
+        dataEmissao=dataEmissao,
+        acuracia=acuracia,
+        filial=filial,
+        silo=silo,
+        Usuario_email=Usuario_email,
+        urlFoto=urlFoto,
+        status=status
+    )
+    relatorio.save()
+
+    # Redirecione para uma página de sucesso ou outra página relevante
+    return JsonResponse({'mensagem': 'Relatório cadastrado com sucesso'}, status=200)
+
+
+
 
 @middlewareAcessoAdm
 def listar_usuarios(request):

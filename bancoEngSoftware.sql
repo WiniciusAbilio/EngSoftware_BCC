@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS `engsoftware`.`Relatorio` (
   `urlFoto` VARCHAR(45) NOT NULL,
   `filial` VARCHAR(45) NOT NULL,
   `silo` VARCHAR(45) NOT NULL,
+  `status` VARCHAR(45) NOT NULL,
   `Usuario_email` VARCHAR(150) NOT NULL,
   PRIMARY KEY (`idRelatorio`, `Usuario_email`),
   INDEX `fk_Relatorio_Usuario1_idx` (`Usuario_email` ASC) VISIBLE,
