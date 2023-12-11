@@ -3,6 +3,8 @@ import "../styles.css";
 import SelectSilos from "../components/selectSilos";
 import { TokenJWT } from '../components/utilsTokenJWT';
 import BotaoVoltar from '../components/botaoVoltar';
+import axios from 'axios';
+
 
 function ImagemAnalista() {
   // Estados para armazenar as informações selecionadas
@@ -27,42 +29,54 @@ function ImagemAnalista() {
   };
 
   // Função de manipulação do envio do formulário
-  const handleInserir = (event) => {
+  const handleInserir = async (event) => {
     event.preventDefault();
 
     const dataHoraAtual = new Date();
 
 // Obter a data e hora em uma única string
-const dataHoraString = dataHoraAtual.toLocaleString(); 
+  const dataHoraString = dataHoraAtual.toLocaleString(); 
 
 
-// Dividir o token em partes (cabeçalho, payload, assinatura)
-  const [encodedHeader, encodedPayload] = TokenJWT.split('.');
+  // Dividir o token em partes (cabeçalho, payload, assinatura)
+    const [encodedHeader, encodedPayload] = TokenJWT.split('.');
 
-// Decodificar a parte do payload usando base64
-  const decodedPayload = JSON.parse(atob(encodedPayload));
+  // Decodificar a parte do payload usando base64
+    const decodedPayload = JSON.parse(atob(encodedPayload));
 
-    console.log(decodedPayload)
-    // Aqui você pode criar um objeto para armazenar todas as informações necessárias
-    const data = {
-      Usuario_email: decodedPayload.usuario_email,
-      nomeUsuario: decodedPayload.usuario_nome,
-      filial: selectedFilial,
-      silo: selectedSilo,
-      files: selectedFiles,
-      dataEmissao: dataHoraString
-    };
+      console.log(decodedPayload)
+      // Aqui você pode criar um objeto para armazenar todas as informações necessárias
+      const data = {
+        Usuario_email: decodedPayload.usuario_email,
+        nomeUsuario: decodedPayload.usuario_nome,
+        filial: selectedFilial,
+        silo: selectedSilo,
+        dataEmissao: dataHoraString
+      };
 
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `${TokenJWT}`,
-      },
-    };
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `${TokenJWT}`,
+        },
+      };
 
-    // Agora você pode usar o objeto data conforme necessário, como enviá-lo para o servidor, etc.
+      // Agora você pode usar o objeto data conforme necessário, como enviá-lo para o servidor, etc.
+      try {
+        const response = await axios.post('http://localhost:8000/processarRelatorio/', data, config);
 
-    // Exemplo de como você pode logar os dados
+        if (response.status === 200) {
+          window.location.pathname = '/telaAnalista'
+          console.log('Usuário cadastrado com sucesso!');
+        } else {
+          // A resposta foi um erro
+          console.error('Falha ao cadastrar usuário. Status:', response.status);
+        }
+      } catch (error) {
+        // Ocorreu um erro ao enviar a solicitação
+        console.error('Erro ao enviar solicitação:', error);
+      }
+      // Exemplo de como você pode logar os dados
     console.log("Dados a serem enviados:", data);
 
     // Limpar os estados após o envio, se necessário

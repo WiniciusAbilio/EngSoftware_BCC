@@ -15,11 +15,11 @@ const TelaAnalista = () => {
           <div className='container-login-form-btn'>
             <Link to='/criarRelatorio'>
               <button className='logon-form-btn'>
-                Relatório
+                Criar Relatório
               </button>
             </Link>
           </div>
-
+          
         <Logout/>
   
         </div>
