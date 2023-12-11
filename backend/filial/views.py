@@ -57,6 +57,7 @@ def deletar_filial(request):
 
 @middlewareAcessoAdm
 def processar_cadastro_filial(request):
+    print(request.POST)
     if request.method == 'POST':
         nome = request.POST.get('nomeFilial')
         estado = request.POST.get('estado')

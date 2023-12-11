@@ -9,6 +9,7 @@ import TelaAnalista from './pages/telaAnalista';
 import ManageFilial from './pages/manageFilial';
 import ManageUsuario from './pages/manageUsuario';
 import ManageSilo from './pages/manageSilo';
+import CriarRelatorio from './pages/criarRelatorio';
 
 function checkUserRole() {
   const token = localStorage.getItem('token');
@@ -57,6 +58,7 @@ function App() {
       {userRole === 'especialista' && (<></>)}
       {userRole === 'normal' && (<>
         <Route path="/telaAnalista" element={<TelaAnalista />} />
+        <Route path="/criarRelatorio" element={<CriarRelatorio />} />
       </>)}
     </Routes>
   );

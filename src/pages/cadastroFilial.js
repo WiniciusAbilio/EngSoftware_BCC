@@ -1,35 +1,86 @@
-import React from 'react';
+// CadastroFilial.jsx
+import React, { useState } from 'react';
+import axios from 'axios';
 import '../styles.css';
 import EstadosCidades from '../components/estadosCidades';
 import BotaoVoltar from '../components/botaoVoltar';
+import { TokenJWT } from '../components/utilsTokenJWT'; // Importe o TokenJWT
 
 function CadastroFilial() {
-  // Função que será passada para o componente EstadosCidades
-  const onEstadoChange = (estadoSelecionado) => {
-    // Lógica para lidar com a mudança de estado, se necessário
-    console.log('Estado selecionado:', estadoSelecionado);
+  const [estadoSelecionado, setEstadoSelecionado] = useState('');
+  const [cidadeSelecionada, setCidadeSelecionada] = useState('');
+
+  const onEstadoChange = (estado) => {
+    setEstadoSelecionado(estado);
+  };
+
+  const onCidadeChange = (cidade) => {
+    setCidadeSelecionada(cidade);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const data = {
+      nomeFilial: event.target.nomeFilial.value,
+      estado: estadoSelecionado,
+      cidade: cidadeSelecionada
+    };
+
+    console.log('Dados enviados:', data);
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `${TokenJWT}`,
+      },
+    };
+    console.log(data)
+    try {
+      const response = await axios.post(
+        'http://localhost:8000/processarCadastroFilial/',
+        data,
+        config
+      );
+
+      if (response.status === 200) {
+        // Sucesso, redirecione ou faça algo
+      } else {
+        console.error('Falha ao cadastrar filial. Status:', response.status);
+      }
+    } catch (error) {
+      console.error('Erro ao enviar solicitação:', error);
+    }
   };
 
   return (
     <div className="container">
       <div className="container-login">
         <div className="wrap-login">
-          <form className="login-form" action="http://localhost:8000/processarCadastroFilial/" method="post">
+          <form className="login-form" onSubmit={handleSubmit}>
             <span className="login-form-title">Cadastro de Filial</span>
             <span className="login-form-title"></span>
-  
-            <div className='wrap-input'>
-              <input className='input' name='nomeFilial' type='text' placeholder='Nome da Filial' required/>
+
+            <div className="wrap-input">
+              <input
+                className="input"
+                name="nomeFilial"
+                type="text"
+                placeholder="Nome da Filial"
+                required
+              />
             </div>
-            
-            {/* Passa a função onEstadoChange para o componente EstadosCidades */}
-            <EstadosCidades onEstadoChange={onEstadoChange}/>
-            
-            <div className='container-login-form-btn'>
-              <button className='logon-form-btn' type='submit'>
+
+            <EstadosCidades
+              onEstadoChange={onEstadoChange}
+              onCidadeChange={onCidadeChange}
+            />
+
+            <div className="container-login-form-btn">
+              <button className="logon-form-btn" type="submit">
                 CADASTRAR
               </button>
-              <BotaoVoltar/>
+              <BotaoVoltar />
             </div>
           </form>
         </div>
