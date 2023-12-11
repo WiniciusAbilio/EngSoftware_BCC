@@ -4,7 +4,7 @@ import axios from 'axios';
 import '../styles.css';
 import EstadosCidades from '../components/estadosCidades';
 import BotaoVoltar from '../components/botaoVoltar';
-import { TokenJWT } from '../components/utilsTokenJWT'; // Importe o TokenJWT
+import { TokenJWT } from '../components/utilsTokenJWT';
 
 function CadastroFilial() {
   const [estadoSelecionado, setEstadoSelecionado] = useState('');
@@ -27,20 +27,17 @@ function CadastroFilial() {
       cidade: cidadeSelecionada
     };
 
-    console.log('Dados enviados:', data);
 
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `${TokenJWT}`,
-      },
-    };
-    console.log(data)
     try {
       const response = await axios.post(
         'http://localhost:8000/processarCadastroFilial/',
         data,
-        config
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `${TokenJWT}`,
+          },
+        }
       );
 
       if (response.status === 200) {

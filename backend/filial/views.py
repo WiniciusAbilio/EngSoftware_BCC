@@ -6,7 +6,7 @@ from silo.models import Silo
 from backend.middlewares.middleware import middlewareAcessoAdm
 
 
-@middlewareAcessoAdm
+
 def listar_filiais(request):
     # Obtém todas as filiais do banco de dados
     filiais = Filial.objects.all()
@@ -57,16 +57,15 @@ def deletar_filial(request):
 
 @middlewareAcessoAdm
 def processar_cadastro_filial(request):
-    print(request.POST)
-    if request.method == 'POST':
-        nome = request.POST.get('nomeFilial')
-        estado = request.POST.get('estado')
-        cidade = request.POST.get('cidade')
+    data = json.loads(request.body)
+    nome = data.get('nomeFilial')
+    estado = data.get('estado')
+    cidade = data.get('cidade')
 
-        # Crie um novo usuário no banco de dados
-        filial = Filial(nomeFilial=nome, cidade=cidade, estado=estado)
-        filial.save()
-        
-        # Redirecione para uma página de sucesso ou outra página relevante
-        return JsonResponse({'mensagem': 'Filial cadastrada com sucesso'}, status=200)
+    # Crie um novo usuário no banco de dados
+    filial = Filial(nomeFilial=nome, cidade=cidade, estado=estado)
+    filial.save()
+    
+    # Redirecione para uma página de sucesso ou outra página relevante
+    return JsonResponse({'mensagem': 'Filial cadastrada com sucesso'}, status=200)
 

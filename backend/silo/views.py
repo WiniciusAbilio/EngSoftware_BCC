@@ -22,7 +22,7 @@ def atualizar_silos(request):
 
     return JsonResponse({'mensagem': f'Silo com ID {id} atualizado com sucesso.'})
 
-@middlewareAcessoAdm
+
 def listar_silos(request):
     if request.method == 'GET':
         # Obtém todos os silos do banco de dados
