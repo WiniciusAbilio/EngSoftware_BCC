@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "../styles.css";
 import SelectSilos from "../components/selectSilos";
+import { TokenJWT } from '../components/utilsTokenJWT';
+import BotaoVoltar from '../components/botaoVoltar';
 
 function ImagemAnalista() {
   // Estados para armazenar as informações selecionadas
@@ -28,17 +30,40 @@ function ImagemAnalista() {
   const handleInserir = (event) => {
     event.preventDefault();
 
+    const dataHoraAtual = new Date();
+
+// Obter a data e hora em uma única string
+const dataHoraString = dataHoraAtual.toLocaleString(); 
+
+
+// Dividir o token em partes (cabeçalho, payload, assinatura)
+  const [encodedHeader, encodedPayload] = TokenJWT.split('.');
+
+// Decodificar a parte do payload usando base64
+  const decodedPayload = JSON.parse(atob(encodedPayload));
+
+    console.log(decodedPayload)
     // Aqui você pode criar um objeto para armazenar todas as informações necessárias
-    const formData = {
+    const data = {
+      Usuario_email: decodedPayload.usuario_email,
+      nomeUsuario: decodedPayload.usuario_nome,
       filial: selectedFilial,
       silo: selectedSilo,
       files: selectedFiles,
+      dataEmissao: dataHoraString
     };
 
-    // Agora você pode usar o objeto formData conforme necessário, como enviá-lo para o servidor, etc.
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${TokenJWT}`,
+      },
+    };
+
+    // Agora você pode usar o objeto data conforme necessário, como enviá-lo para o servidor, etc.
 
     // Exemplo de como você pode logar os dados
-    console.log("Dados a serem enviados:", formData);
+    console.log("Dados a serem enviados:", data);
 
     // Limpar os estados após o envio, se necessário
     setSelectedFilial('');
@@ -82,6 +107,7 @@ function ImagemAnalista() {
                 onChange={handleFileChange}
                 accept="image/*"
                 style={{ display: "none" }}
+                required
               />
             </div>
 
