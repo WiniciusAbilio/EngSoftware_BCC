@@ -41,7 +41,7 @@ function CadastroFilial() {
       );
 
       if (response.status === 200) {
-        // Sucesso, redirecione ou faça algo
+        window.location.pathname = '/telaAdm'
       } else {
         console.error('Falha ao cadastrar filial. Status:', response.status);
       }

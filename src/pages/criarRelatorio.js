@@ -1,64 +1,77 @@
 import React, { useState } from "react";
 import "../styles.css";
-import SelectSilos from '../components/selectSilos';
+import SelectSilos from "../components/selectSilos";
 
 function ImagemAnalista() {
-  const [cidade, setCidade] = useState("");
-  const [silo, setSilo] = useState("");
+  // Estados para armazenar as informações selecionadas
+  const [selectedFilial, setSelectedFilial] = useState('');
+  const [selectedSilo, setSelectedSilo] = useState('');
   const [selectedFiles, setSelectedFiles] = useState([]);
 
-  const onFilialChange = (novaFilial) => {
-    setCidade(novaFilial);
+  // Função de callback para o componente SelectSilos - Filial
+  const handleFilialChange = (event) => {
+    setSelectedFilial(event.target.value);
   };
 
+  // Função de callback para o componente SelectSilos - Silo
+  const handleSiloChange = (event) => {
+    setSelectedSilo(event.target.value);
+  };
+
+  // Função de manipulação de alterações no arquivo
   const handleFileChange = (event) => {
-    const files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
+    const files = event.target.files;
     setSelectedFiles([...files]);
   };
 
-  const handleDrop = (event) => {
-    event.preventDefault();
-    handleFileChange(event);
-  };
-
+  // Função de manipulação do envio do formulário
   const handleInserir = (event) => {
     event.preventDefault();
 
-    // Aqui você pode adicionar a lógica para enviar os dados (filial, silo, files) para o backend
-    const data = {
-      cidade,
-      silo,
+    // Aqui você pode criar um objeto para armazenar todas as informações necessárias
+    const formData = {
+      filial: selectedFilial,
+      silo: selectedSilo,
       files: selectedFiles,
     };
 
-    // Exemplo de como enviar os dados para o backend usando fetch
-    fetch("http://localhost:8000/seu-endpoint-backend", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        console.log("Dados enviados com sucesso:", result);
-        // Adicione aqui qualquer lógica adicional após o envio bem-sucedido
-      })
-      .catch((error) => {
-        console.error("Erro ao enviar dados:", error);
-      });
+    // Agora você pode usar o objeto formData conforme necessário, como enviá-lo para o servidor, etc.
 
+    // Exemplo de como você pode logar os dados
+    console.log("Dados a serem enviados:", formData);
+
+    // Limpar os estados após o envio, se necessário
+    setSelectedFilial('');
+    setSelectedSilo('');
     setSelectedFiles([]);
+  };
+
+  // Função para lidar com o evento de soltar (drop)
+  const handleDrop = (e) => {
+    e.preventDefault();
+
+    const files = e.dataTransfer.files;
+    setSelectedFiles([...files]);
   };
 
   return (
     <div className="container">
       <div className="container-login">
         <div className="wrap-login">
-          <form className="login-form" onSubmit={handleInserir} onDrop={handleDrop} onDragOver={(e) => e.preventDefault()}>
-            <span className="login-form-title">Enviar Imagem para Relatório</span>
-            
-            <SelectSilos onFilialChange={onFilialChange} />
+        <form
+          className="login-form"
+          onSubmit={handleInserir}
+          onDrop={handleDrop}
+          onDragOver={(e) => e.preventDefault()}
+        >
+          <span className="login-form-title">Enviar Imagem para Relatório</span>
+
+          {/* Passando as funções de callback para o componente SelectSilos */}
+          <SelectSilos
+            onFilialChange={(value) => handleFilialChange(value)}
+            onSiloChange={(value) => handleSiloChange(value)}
+          />
+
 
             {/* Adicionado campo de arrastar e soltar */}
             <div>
@@ -89,7 +102,6 @@ function ImagemAnalista() {
                 INSERIR
               </button>
             </div>
-         
           </form>
         </div>
       </div>

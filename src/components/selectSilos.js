@@ -2,13 +2,11 @@ import React, { useState, useEffect } from 'react';
 import '../styles/stylesSelects.css';
 import { TokenJWT } from './utilsTokenJWT';
 
-function SelectSilos() {
-  const [filialId, setFilialId] = useState('');
-  const [silos, setSilos] = useState([]);
+function SelectSilos({ onFilialChange, onSiloChange }) {
+  const [filiaisESilos, setFiliaisESilos] = useState([]);
   const [selectedFilial, setSelectedFilial] = useState('');
   const [selectedSilo, setSelectedSilo] = useState('');
 
-  
   useEffect(() => {
     async function fetchSilos() {
       try {
@@ -19,30 +17,32 @@ function SelectSilos() {
             'Content-Type': 'application/json',
           },
         });
-  
+
         if (response.ok) {
           const jsonData = await response.json();
-          setSilos(jsonData.silos);  // Ajustado para jsonData.silos
+          setFiliaisESilos(jsonData.silos);
         }
       } catch (error) {
         console.error('Erro ao processar a solicitação de silos:', error);
       }
     }
-  
+
     fetchSilos();
   }, []);
-  
+
   const handleFilialChange = (event) => {
     const selectedFilialId = event.target.value;
-    setFilialId(selectedFilialId);
     setSelectedFilial(selectedFilialId);
+    setSelectedSilo(''); // Limpar o silo selecionado ao mudar a filial
+    onFilialChange(event); // Passar o evento diretamente para a função pai
   };
-  
+
   const handleSiloChange = (event) => {
     const selectedSiloId = event.target.value;
     setSelectedSilo(selectedSiloId);
+    onSiloChange(event); // Passar o evento diretamente para a função pai
   };
-  
+
   return (
     <div>
       {/* Select de Filiais */}
@@ -58,14 +58,14 @@ function SelectSilos() {
           <option value="" disabled>
             Selecione a Filial
           </option>
-          {silos.map((silo) => (
-            <option key={silo.idFilial} value={silo.idFilial}>
-              {silo.nomeFilial}
+          {filiaisESilos.map((item) => (
+            <option key={item.idFilial} value={item.idFilial}>
+              {item.nomeFilial}
             </option>
           ))}
         </select>
       </div>
-  
+
       {/* Select de Silos */}
       <div className="select-container" style={{ marginBottom: '1rem' }}>
         <select
@@ -79,8 +79,8 @@ function SelectSilos() {
           <option value="" disabled>
             Selecione o Silo
           </option>
-          {silos
-            .filter((silo) => silo.idFilial === filialId)  // Filtrado com base no filialId
+          {filiaisESilos
+            .filter((silo) => silo.idFilial.toString() === selectedFilial.toString())
             .map((silo) => (
               <option key={silo.idSilo} value={silo.idSilo}>
                 {silo.nomeSilo}
@@ -90,5 +90,6 @@ function SelectSilos() {
       </div>
     </div>
   );
-            }
+}
+
 export default SelectSilos;
